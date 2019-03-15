@@ -1,7 +1,7 @@
 from Bio import Entrez, SeqIO
 import pandas as pd
 
-Entrez.email = 'massimo.bourquin@epfl.ch'
+Entrez.email = 'my.email@mycompany.XXX'
 
 data_inputs = []
 with open('assembly_virus_complete_genomes.txt', 'r') as f:
