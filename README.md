@@ -22,7 +22,7 @@ To retrieve a fasta of all genome assemblies avauilable on NCBI:
 - Script to create fasta file: [viral_assemblies.py](https://github.com/Mass23/Viral-ecology/blob/master/viral_assemblies.py)
 
 A few downloads failed:
-- List of accessions: [stats_db.txtt](https://github.com/Mass23/Viral-ecology/blob/master/stats_db.txt)
+- List of accessions: [stats_db.txt](https://github.com/Mass23/Viral-ecology/blob/master/stats_db.txt)
 
 ### 1.3.2 Merge with contigs
 
