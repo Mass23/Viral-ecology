@@ -3,9 +3,13 @@
 # 1.1 Sort contigs: VirSorter
 
 # 1.2 Mapping
+
 ```
+
 Reads from the 214 bulk soil metagenomes were quality trimmed using Trimmomatic v0.3635 and then paired reads were mapped to the viral contig database with Bowtie236, using default parameters. The output bam files were passed to BamM ‘filter’ v1.7.2 (http://ecogenomics.github.io/BamM/, accessed 15 December 2015) and reads that were aligned over ≥90% of their length at ≥95% nucleic acid identity were retained.
+
 ```
+
 1. Trimming: trimmomatic
 - http://www.usadellab.org/cms/?page=trimmomatic
 2. Mapping: BWA
