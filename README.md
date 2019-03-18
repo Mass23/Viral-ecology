@@ -56,6 +56,17 @@ Script: [preprocess.py](https://github.com/Mass23/Viral-ecology/blob/master/prep
 > the viral contig database with Bowtie236, using default parameters. The output bam files were passed to BamM ‘filter’ v1.7.2 
 > (http://ecogenomics.github.io/BamM/, accessed 15 December 2015) and reads that were aligned over ≥90% of their length at ≥95% > nucleic acid identity were retained.
 
+First, we need to merge the files per sample:
+```
+cat SNG1_R1.fq.gz SNG2_R1.fq.gz > SNG_R1.fq.gz
+cat VDN1_R1.fq.gz VDN2_R1.fq.gz > VDN_R1.fq.gz
+cat VEV1_R1.fq.gz VEV2_R1.fq.gz > VEV_R1.fq.gz
+
+cat SNG1_R2.fq.gz SNG2_R2.fq.gz > SNG_R2.fq.gz
+cat VDN1_R2.fq.gz VDN2_R2.fq.gz > VDN_R2.fq.gz
+cat VEV1_R2.fq.gz VEV2_R2.fq.gz > VEV_R2.fq.gz
+```
+
 1. Trimming: trimmomatic
 - http://www.usadellab.org/cms/?page=trimmomatic
 2. Mapping: BWA
