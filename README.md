@@ -14,11 +14,13 @@ perl virsorter_db/VirSorter/wrapper_phage_contigs_sorter_iPlant.pl -f VEV/VEV_co
 
 ## 1.3 OTUs calling
 ### 1.3.1 NCBI assemblies of viruses genomes
-To retrieve a fasta of all genome assemblies avauilable on NCBI:
-- List of accessions: [Assemblies_db_15-03-19.txt](https://github.com/Mass23/Viral-ecology/blob/master/Assemblies_db_15-03-19.txt)
-- Script to create fasta file: [viral_assemblies.py](https://github.com/Mass23/Viral-ecology/blob/master/viral_assemblies.py)
 
-Earth's virome database: https://www.nature.com/articles/nature19094#methods
+Two datasets were used:
+- To retrieve a fasta of all genome assemblies available on NCBI:
+    - List of accessions: [Assemblies_db_15-03-19.txt](https://github.com/Mass23/Viral-ecology/blob/master/Assemblies_db_15-03-19.txt)
+    - Script to create fasta file: [viral_assemblies.py](https://github.com/Mass23/Viral-ecology/blob/master/viral_assemblies.py)
+
+- Earth's virome database: https://www.nature.com/articles/nature19094#methods
 
 ### 1.3.2 Merge with contigs
 
