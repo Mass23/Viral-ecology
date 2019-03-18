@@ -42,11 +42,11 @@ cat /home/fodelian/Desktop/ViralGenomes/assembly_db/refseq_viral_genomes.fasta \
      > raw_db_ctgs.fasta
 ```
 
-### 1.3.3 Search 95% OTUs
+### 1.3.3 Search 95% clusters
+
+Vsearch: https://github.com/torognes/vsearch
 
 ```
-cd-hit-est -i raw_db_ctgs.fasta -o 95otus_db_ctgs -c 0.95
-
 vsearch --cluster_smallmem raw_db_ctgs.fasta --consout 95_database.fasta --id 0.95 --iddef 0 --maxseqlength 3000000 --threads 6 --usersort
 ```
 
