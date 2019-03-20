@@ -47,7 +47,7 @@ cat /home/fodelian/Desktop/ViralGenomes/assembly_db/refseq_viral_genomes.fasta \
 Vsearch: https://github.com/torognes/vsearch
 
 ```
-vsearch --cluster_smallmem raw_db_ctgs.fasta --consout 95_database.fasta --id 0.95 --iddef 0 --maxseqlength 3000000 --threads 6 --usersort
+vsearch --cluster_fast raw_db_ctgs.fasta --consout 95_database.fasta --id 0.95 --iddef 0 --maxseqlength 3000000 --threads 6 --usersort
 ```
 
 ## 1.4 Mapping
