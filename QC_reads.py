@@ -56,11 +56,7 @@ def GCcontent(seq):
 
 ################################################################################
 
-
-# Plot quality, n reads per file on histogram
-# Plot blast matches, n reads per file
 with gzip.open(fastq_file, 'rt') as f:
-#, gzip.open(reverse_path, 'rt') as reverse:
     f_parsed = list(SeqIO.parse(f, 'fastq'))
     f_length = len(f_parsed)
 
