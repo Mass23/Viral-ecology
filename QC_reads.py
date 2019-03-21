@@ -54,7 +54,7 @@ def GCcontent(seq):
         gc_content = -1
     return(gc_content)
 
-################################################################################
+############ MAIN ##############################################################
 
 with gzip.open(fastq_file, 'rt') as f:
     f_parsed = list(SeqIO.parse(f, 'fastq'))
