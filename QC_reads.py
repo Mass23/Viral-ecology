@@ -15,8 +15,6 @@ import operator as op
 import seaborn as sns
 from matplotlib import pyplot as plt
 
-plt.rcParams["font.family"] = "Times New Roman"
-
 Entrez.email = "massimo.bourquin@epfl.ch"
 
 parser = argparse.ArgumentParser()
@@ -94,12 +92,14 @@ with gzip.open(fastq_file, 'rt') as f:
             f_taxonomy = GetTaxonomyGI(GI_id)
         except:
             f_taxonomy = 'Unknown'
+            evalue = -1
 
         # Add output to the lists
         out_quality.append(f_parsed[current_seed].letter_annotations['phred_quality'])
+        out_length.append(read_length)
+
         if evalue < e_value_threshold:
             out_taxonomy.append(f_taxonomy)
-        out_length.append(read_length)
         if gc_content != -1:
             out_gc.append(gc_content)
 
@@ -121,21 +121,24 @@ with gzip.open(fastq_file, 'rt') as f:
     sorted_vals = tuple([qual_dict[i] for i in range(0, max_length)])
 
     # Plot the output
-    fig, ax = plt.subplots(figsize=(10,10), ncols=2, nrows=2)
+    fig, ax = plt.subplots(figsize=(13,10), ncols=2, nrows=2)
     sns.set_style('whitegrid')
-    fig.suptitle('QC-reads - ' + fastq_file + ', n = ' + str(reads_number), fontsize=20)
 
+    print('Plotting read length...')
     ax1 = sns.distplot(out_length, ax=ax[0][0])
     ax1.set(xlabel="Read length", ylabel="Frequency")
 
+    print('Plotting GC content...')
     ax2 = sns.distplot(out_gc, ax=ax[1][0])
     ax2.set(xlabel="GC content", ylabel="Frequency")
 
+    print('Plotting out_taxonomy...')
     ax3 = sns.countplot(out_taxonomy, ax=ax[0][1])
 
-    ax4 = sns.boxplot(data=sorted_vals,ax=ax[1][1], palette="Blues")
+    print('Plotting quality...')
+    ax4 = sns.boxplot(data=sorted_vals, ax=ax[1][1], palette="Blues")
     ax4.set(xlabel="Read position", ylabel="Phred Quality Score")
     plt.xticks(plt.xticks()[0], sorted_keys)
 
-    plt.savefig('QC_reads_' + fastq_file + '.png', dpi = 1000)
+    plt.savefig('QC_' + fastq_file + '_n' + str(reads_number) + '.png', dpi = 1000)
     plt.close()
