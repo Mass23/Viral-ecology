@@ -29,13 +29,10 @@ reads_number = args.ReadsNumber
 e_value_threshold = args.EvalueThreshold
 
 ############ FUNCTIONS #########################################################
-
 def GetEvalueId(xml_file):
     for i in xml_file.readlines():
-        
         if '<Hit_id>' in i:
             GI_id = i.split('gi|')[1].split('|')[0]
-            
         elif '<Hsp_evalue>' in i:
             evalue = i.split('<Hsp_evalue>')[1].split('</Hsp_evalue>')[0]
             return(GI_id, evalue)
@@ -51,68 +48,61 @@ def GCcontent(seq):
     c_count = seq.count('C')
     a_count = seq.count('A')
     t_count = seq.count('T')
-    
     try:
         gc_content = (g_count + c_count) / (g_count + c_count + a_count + t_count)
-        
     except:
         gc_content = -1
-        
     return(gc_content)
 
+################################################################################
 
-############ MAIN ##############################################################
 
+# Plot quality, n reads per file on histogram
+# Plot blast matches, n reads per file
 with gzip.open(fastq_file, 'rt') as f:
-    f_parsed = list(SeqIO.parse(f, 'fastq'))
-    f_length = len(f_parsed)
 
     out_quality = []
     out_length = []
     out_taxonomy = []
     out_gc = []
 
-    seeds = [random.randint(0, f_length-1) for i in range(0, reads_number)]
+    for i, sequence in enumerate(SeqIO.parse(f, 'fastq')):
 
-    for i in range(0, len(seeds)):
-        current_seed = seeds[i]
-        
-        # Create seed number, get read length
-        print('Read number: ', i+1 , '/', reads_number)
-        read_length = len(f_parsed[current_seed].seq)
-        gc_content = GCcontent(f_parsed[current_seed].seq)
+        if i + 1 > reads_number:
+            break
+        else:
+            # Create seed number, get read length
+            print('Read number: ', i+1 , '/', reads_number)
+            read_length = len(sequence.seq)
+            gc_content = GCcontent(sequence.seq)
 
-        # Blast sequence on NCBI
-        
-        try:
-            print('  - Blasting...')
-            f_blast = NCBIWWW.qblast('blastn', 'nt', f_parsed[current_seed].seq)
+            # Blast sequence on NCBI
+            try:
+                print('  - Blasting...')
+                f_blast = NCBIWWW.qblast('blastn', 'nt', sequence.seq)
 
-            # Search taxonomy using accession ID
-            print('  - Searching taxonomy...')
-            results = GetEvalueId(f_blast)
+                # Search taxonomy using accession ID
+                print('  - Searching taxonomy...')
+                results = GetEvalueId(f_blast)
 
-            GI_id = results[0]
-            evalue = float(results[1])
-            f_taxonomy = GetTaxonomyGI(GI_id)
-            
-        except:
-            f_taxonomy = 'Unknown'
-            evalue = -1
+                GI_id = results[0]
+                evalue = float(results[1])
+                f_taxonomy = GetTaxonomyGI(GI_id)
+            except:
+                f_taxonomy = 'Unknown'
+                evalue = -1
 
         # Add output to the lists
-        out_quality.append(f_parsed[current_seed].letter_annotations['phred_quality'])
+        out_quality.append(sequence.letter_annotations['phred_quality'])
         out_length.append(read_length)
 
         if evalue < e_value_threshold:
             out_taxonomy.append(f_taxonomy)
-            
         if gc_content != -1:
             out_gc.append(gc_content)
 
-    # Get quality data into the right format:
+    # Get data into the right format
     max_length = 0
-    
     for i in out_quality:
         if len(i) > max_length:
             max_length = len(i)
@@ -120,15 +110,11 @@ with gzip.open(fastq_file, 'rt') as f:
     qual_dict = {}
     for i in range(0, max_length):
         qual_dict[i] = []
-        
         for j in out_quality:
-            
             try:
                 qual_dict[i].append(j[i])
-                
             except:
                 qual_dict[i].append(np.nan)
-                
     sorted_keys = [i for i in range(1, max_length + 1)]
     sorted_vals = tuple([qual_dict[i] for i in range(0, max_length)])
 
@@ -153,5 +139,4 @@ with gzip.open(fastq_file, 'rt') as f:
     plt.xticks(plt.xticks()[0], sorted_keys)
 
     plt.savefig('QC_' + fastq_file + '_n' + str(reads_number) + '.png', dpi = 1000)
-    print('Done!')
     plt.close()
