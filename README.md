@@ -1,19 +1,7 @@
 # 1. Pipeline
 
-## 1.1 Sort contigs: VirSorter
-
-Reference: https://github.com/simroux/VirSorter
-
-```
-perl virsorter_db/VirSorter/wrapper_phage_contigs_sorter_iPlant.pl -f SNG/SNG_contigs.fasta --ncpu 3 -d SNG --data-dir virsorter_db/virsorter-data --virome
-
-perl virsorter_db/VirSorter/wrapper_phage_contigs_sorter_iPlant.pl -f VDN/VDN_contigs.fasta --ncpu 3 -d VDN --data-dir virsorter_db/virsorter-data --virome
-
-perl virsorter_db/VirSorter/wrapper_phage_contigs_sorter_iPlant.pl -f VEV/VEV_contigs.fasta --ncpu 3 -d VEV --data-dir virsorter_db/virsorter-data --virome
-```
-
-## 1.3 OTUs calling
-### 1.3.1 NCBI assemblies of viruses genomes
+## 1.1 OTUs calling
+### 1.1.1 NCBI assemblies of viruses genomes
 
 Two datasets were used:
 - To retrieve a fasta of all genome assemblies available on NCBI:
@@ -22,7 +10,7 @@ Two datasets were used:
 
 - Earth's virome database: https://www.nature.com/articles/nature19094#methods
 
-### 1.3.2 Merge with contigs
+### 1.1.2 Merge with contigs
 
 ```
 cat /home/fodelian/Desktop/ViralGenomes/assembly_db/refseq_viral_genomes.fasta \
@@ -42,7 +30,7 @@ cat /home/fodelian/Desktop/ViralGenomes/assembly_db/refseq_viral_genomes.fasta \
      > raw_db_ctgs.fasta
 ```
 
-### 1.3.3 Search 95% clusters
+### 1.1.3 Search 95% clusters
 
 Vsearch: https://github.com/torognes/vsearch
 
@@ -50,7 +38,7 @@ Vsearch: https://github.com/torognes/vsearch
 vsearch --cluster_fast raw_db_ctgs.fasta --consout 95_database.fasta --id 0.95 --iddef 0 --maxseqlength 3000000 --threads 6 --usersort
 ```
 
-## 1.4 Mapping
+## 1.2 Mapping
 
 Script: [preprocess.py](https://github.com/Mass23/Viral-ecology/blob/master/preprocess.py)
 
@@ -76,7 +64,7 @@ cat VEV1_R2.fq.gz VEV2_R2.fq.gz > VEV_R2.fq.gz
 3. Bam filter: BamM 'filter
 - http://ecogenomics.github.io/BamM/
 
-## 1.5 Filtering
+## 1.3 Filtering
 
 **References:**
 - https://www.nature.com/articles/s41564-018-0190-y#ref-CR18
