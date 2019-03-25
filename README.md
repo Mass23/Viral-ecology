@@ -57,8 +57,10 @@ cat VDN1_R2.fq.gz VDN2_R2.fq.gz > VDN_R2.fq.gz
 cat VEV1_R2.fq.gz VEV2_R2.fq.gz > VEV_R2.fq.gz
 ```
 
-1. Trimming: trimmomatic
-- http://www.usadellab.org/cms/?page=trimmomatic
+1. Trimming: 
+```
+python3 QC_trim.py -f SNG_R1.fq.gz -q 20 -k 4 -m 20 -l 10
+```
 2. Mapping: BWA
 - http://bio-bwa.sourceforge.net/
 3. Bam filter: BamM 'filter
