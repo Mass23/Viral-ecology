@@ -41,16 +41,18 @@ def FilterReads(file):
     kept_count = 0
 
     with gzip.open(file, 'rt') as f:
-      for sequence in SeqIO.parse(f, 'fastq'):
-          lowest_quality = min(sequence.letter_annotations['phred_quality'])
-          mean_quality = mean(sequence.letter_annotations['phred_quality'])
-          kmer_min_qual = GetKmerQual(kmer_len, sequence.letter_annotations['phred_quality'])
+        for sequence in SeqIO.parse(f, 'fastq'):
+            print('Running:', str(filtered_count + kept_count + 1), 'reads processed' , end='\r')
 
-          if kmer_min_qual >= kmer_qual and lowest_quality > low_qual and mean_quality >= mean_qual:
-              filtered_reads.append(sequence)
-              kept_count += 1
-          else:
-              filtered_count += 1
+            lowest_quality = min(sequence.letter_annotations['phred_quality'])
+            mean_quality = mean(sequence.letter_annotations['phred_quality'])
+            kmer_min_qual = GetKmerQual(kmer_len, sequence.letter_annotations['phred_quality'])
+
+            if kmer_min_qual >= kmer_qual and lowest_quality > low_qual and mean_quality >= mean_qual:
+                filtered_reads.append(sequence)
+                kept_count += 1
+            else:
+                filtered_count += 1
     try:
         removed_ratio = (kept_count/(filtered_count + kept_count)) * 100
     except:
@@ -61,7 +63,7 @@ def main():
     if fastq_file == 'all':
 
         print('\n', '------------ QC_trim.py ------------', '\n')
-
+        print(time.strftime("%Y-%m-%d %H:%M"), '\n')
         print('------------------------------------')
         print(str(kmer_len) + '-mer quality', '\t', ': ', '\t', '\t', kmer_qual)
         print('Mean quality', '\t', ': ', '\t', '\t', mean_qual)
@@ -75,7 +77,6 @@ def main():
         print('Files to process: ')
         for i in dir_fastq:
             print(' -', i)
-        print('\n')
 
         with open('All_QC_stats.txt', 'w') as out:
             for fastq in dir_fastq:
@@ -98,7 +99,7 @@ def main():
         with open(name + '_QC_stats.txt', 'w') as out:
 
             print('\n', '------------ QC_trim.py ------------', '\n')
-
+            print(time.strftime("%Y-%m-%d %H:%M"), '\n')
             print('------------------------------------')
             print(str(kmer_len) + '-mer quality', '\t', ': ', '\t', '\t', kmer_qual)
             print('Mean quality', '\t', ': ', '\t', '\t', mean_qual)
