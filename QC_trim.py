@@ -3,6 +3,7 @@ import argparse
 import gzip
 import glob
 import time
+import subprocess
 
 # Arguments parsing
 parser = argparse.ArgumentParser()
@@ -77,6 +78,7 @@ def main():
         print('Files to process: ')
         for i in dir_fastq:
             print(' -', i)
+        print('\n')
 
         with open('All_QC_stats.txt', 'w') as out:
             for fastq in dir_fastq:
@@ -85,8 +87,11 @@ def main():
                 print('File: ', fastq)
                 filtered_reads = FilterReads(fastq)
                 out_list = filtered_reads[0]
-                print(' -', str(filtered_reads[1]) + '%', 'of reads kept.')
-                SeqIO.write(out_list, name + '_trimmed.fastq.gz', 'fastq')
+                print(' -', str(round(filtered_reads[1],4)) + '%', 'of reads kept.')
+
+                SeqIO.write(out_list, name + '_trimmed.fastq', 'fastq')
+                subprocess.call('gzip' + name + '_trimmed.fastq', shell = True)
+
                 print(' -', fastq, ' done!')
 
                 out.write(fastq)
@@ -109,9 +114,12 @@ def main():
 
             filtered_reads = FilterReads(fastq_file)
             out_list = filtered_reads[0]
-            SeqIO.write(out_list, name + '_trimmed.fastq.gz', 'fastq')
+
+            SeqIO.write(out_list, name + '_trimmed.fastq', 'fastq')
+            subprocess.call('gzip' + name + '_trimmed.fastq', shell = True)
+
             print('File:', fastq_file, 'done:')
-            print(' -', str(filtered_reads[1]) + '%', 'of reads kept.', '\n')
+            print(' -', str(round(filtered_reads[1],4)) + '%', 'of reads kept.', '\n')
 
             out.write(str(fastq_file))
             out.write('\t')
