@@ -7,7 +7,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-f', '--FastaFile', help='Fasta file', type=str, action = 'store', required = True)
 parser.add_argument('-o', '--OutputFile', help='Fasta file', type=str, action = 'store', required = True)
 parser.add_argument('-n', '--NumberOfSequences', help='Number of sequences to sub-sample from the fasta file.', type=int, action = 'store', required = False)
-parser.add_argument('-p', '--ProportionOfSequences', help='Proportion of sequences to sub-sample from the fasta file.', type=int, action = 'store', required = False)
+parser.add_argument('-p', '--ProportionOfSequences', help='Proportion of sequences to sub-sample from the fasta file.', type=float, action = 'store', required = False)
 
 args = parser.parse_args()
 
@@ -24,7 +24,6 @@ def ParseFasta(file):
     return(sequences_list, length_fasta)
 
 def ProportionMethod(sequences_list, proportion, length_fasta):
-    print('Number of sequences: ', length_fasta)
     number = int(length_fasta * proportion)
     sub_sample = random.sample(sequences_list, number)
     return(sub_sample)
@@ -37,7 +36,7 @@ def NumberMethod(sequences_list, number, length_fasta):
         sub_sample = random.sample(sequences_list, number)
         return(sub_sample)
 
-def SequenceListToFasta(sequence_list, output_file):
+def SequenceListToFasta(sequence_list):
     SeqIO.write(sequence_list, output_file, 'fasta')
     print('Fasta file written!')
 
@@ -47,6 +46,7 @@ def main():
     name = fasta_file.replace('.fasta','').replace('.fa','')
     sequences = data[0]
     length = data[1]
+    print('Fasta file loaded:', str(length), 'sequences', '\n')
 
     if seq_number == None and seq_proportion == None:
         print('Please use an option, -n or -p!')
@@ -54,10 +54,10 @@ def main():
     elif seq_number == None:
         print('Sub-sampling using the proportion mode:')
 
-        number_kept = int(length_fasta * proportion)
-        print('Keeping', seq_proportion + '%','(' + number_kept + ')', 'of the sequences.', '\n')
+        number_kept = int(length * seq_proportion)
+        print('Keeping', str(round(seq_proportion, 4)) + '%','(' + str(number_kept) + ')', 'of the sequences.', '\n')
 
-        sub_sample_proportion = ProportionMethod(fasta_file, seq_proportion, length)
+        sub_sample_proportion = ProportionMethod(sequences, seq_proportion, length)
         SequenceListToFasta(sub_sample_proportion)
 
         print('Done!')
@@ -66,9 +66,9 @@ def main():
         print('Sub-sampling using the number mode:')
 
         proportion_kept = seq_number / length
-        print('Keeping', proportion_kept + '%','(' + seq_number + ')', 'of the sequences.', '\n')
+        print('Keeping', str(round(proportion_kept, 4)) + '%','(' + str(seq_number) + ')', 'of the sequences.', '\n')
 
-        sub_sample_numeric = NumberMethod(fasta_file, seq_number, length)
+        sub_sample_numeric = NumberMethod(sequences, seq_number, length)
         SequenceListToFasta(sub_sample_numeric)
 
         print('Done!')
