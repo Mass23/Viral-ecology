@@ -57,7 +57,7 @@ cat VDN1_R2.fq.gz VDN2_R2.fq.gz > VDN_R2.fq.gz
 cat VEV1_R2.fq.gz VEV2_R2.fq.gz > VEV_R2.fq.gz
 ```
 
-1. Trimming: 
+1. Trimming: [script](https://github.com/Mass23/Viral-ecology/blob/master/QC_trim.py)
 ```
 python3 QC_trim.py -f SNG_R1.fq.gz -q 20 -k 4 -m 20 -l 10
 ```
