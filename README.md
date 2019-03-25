@@ -15,9 +15,9 @@ Two datasets were used:
 ```
 cat /home/fodelian/Desktop/ViralGenomes/assembly_db/refseq_viral_genomes.fasta \
     /home/fodelian/Desktop/ViralGenomes/assembly_db/mVGs_sequences_v2.fasta  \
-    /home/fodelian/Desktop/ViralGenomes/SNG/SNG_contigs.fasta
-    /home/fodelian/Desktop/ViralGenomes/VDN/VDN_contigs.fasta
-    /home/fodelian/Desktop/ViralGenomes/VEV/VEV_contigs.fasta
+    /home/fodelian/Desktop/ViralGenomes/SNG/SNG_contigs.fasta  \
+    /home/fodelian/Desktop/ViralGenomes/VDN/VDN_contigs.fasta  \
+    /home/fodelian/Desktop/ViralGenomes/VEV/VEV_contigs.fasta  \
      > raw_db_ctgs.fasta
 ```
 
