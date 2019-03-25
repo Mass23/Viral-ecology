@@ -15,18 +15,9 @@ Two datasets were used:
 ```
 cat /home/fodelian/Desktop/ViralGenomes/assembly_db/refseq_viral_genomes.fasta \
     /home/fodelian/Desktop/ViralGenomes/assembly_db/mVGs_sequences_v2.fasta  \
-    /home/fodelian/Desktop/ViralGenomes/SNG/virsorter-out/Predicted_viral_sequences/SNG_cat-1.fasta \
-    /home/fodelian/Desktop/ViralGenomes/SNG/virsorter-out/Predicted_viral_sequences/SNG_cat-2.fasta \
-    /home/fodelian/Desktop/ViralGenomes/SNG/virsorter-out/Predicted_viral_sequences/SNG_prophages_cat-4.fasta \
-    /home/fodelian/Desktop/ViralGenomes/SNG/virsorter-out/Predicted_viral_sequences/SNG_prophages_cat-5.fasta \
-    /home/fodelian/Desktop/ViralGenomes/VDN/virsorter-out/Predicted_viral_sequences/VDN_cat-1.fasta \
-    /home/fodelian/Desktop/ViralGenomes/VDN/virsorter-out/Predicted_viral_sequences/VDN_cat-2.fasta \
-    /home/fodelian/Desktop/ViralGenomes/VDN/virsorter-out/Predicted_viral_sequences/VDN_prophages_cat-4.fasta \
-    /home/fodelian/Desktop/ViralGenomes/VDN/virsorter-out/Predicted_viral_sequences/VDN_prophages_cat-5.fasta \
-    /home/fodelian/Desktop/ViralGenomes/VEV/virsorter-out/Predicted_viral_sequences/VEV_cat-1.fasta \
-    /home/fodelian/Desktop/ViralGenomes/VEV/virsorter-out/Predicted_viral_sequences/VEV_cat-2.fasta \
-    /home/fodelian/Desktop/ViralGenomes/VEV/virsorter-out/Predicted_viral_sequences/VEV_prophages_cat-4.fasta \
-    /home/fodelian/Desktop/ViralGenomes/VEV/virsorter-out/Predicted_viral_sequences/VEV_prophages_cat-5.fasta \
+    /home/fodelian/Desktop/ViralGenomes/SNG/SNG_contigs.fasta
+    /home/fodelian/Desktop/ViralGenomes/VDN/VDN_contigs.fasta
+    /home/fodelian/Desktop/ViralGenomes/VEV/VEV_contigs.fasta
      > raw_db_ctgs.fasta
 ```
 
