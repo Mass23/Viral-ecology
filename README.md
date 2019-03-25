@@ -1,7 +1,7 @@
-# 1. Pipeline
+# 1. Virome assembly
 
-## 1.1 OTUs calling
-### 1.1.1 NCBI assemblies of viruses genomes
+# 2. OTUs calling
+## 2.1 Database of assembled viromes
 
 Two datasets were used:
 - To retrieve a fasta of all genome assemblies available on NCBI:
@@ -10,7 +10,7 @@ Two datasets were used:
 
 - Earth's virome database: https://www.nature.com/articles/nature19094#methods
 
-### 1.1.2 Merge with contigs
+## 2.2 Merge with contigs
 
 ```
 cat /home/fodelian/Desktop/ViralGenomes/assembly_db/refseq_viral_genomes.fasta \
@@ -21,7 +21,7 @@ cat /home/fodelian/Desktop/ViralGenomes/assembly_db/refseq_viral_genomes.fasta \
      > raw_db_ctgs.fasta
 ```
 
-### 1.1.3 Search 95% clusters
+### 2.3 Find 95% identity centroids
 
 Vsearch: https://github.com/torognes/vsearch
 
@@ -29,7 +29,7 @@ Vsearch: https://github.com/torognes/vsearch
 vsearch --cluster_fast raw_db_ctgs.fasta --consout 95_database.fasta --id 0.95 --iddef 0 --maxseqlength 3000000 --threads 6 --usersort
 ```
 
-## 1.2 Mapping
+## 2.4 Mapping
 
 Script: [preprocess.py](https://github.com/Mass23/Viral-ecology/blob/master/preprocess.py)
 
@@ -48,16 +48,19 @@ cat VDN1_R2.fq.gz VDN2_R2.fq.gz > VDN_R2.fq.gz
 cat VEV1_R2.fq.gz VEV2_R2.fq.gz > VEV_R2.fq.gz
 ```
 
-1. Trimming: [script](https://github.com/Mass23/Viral-ecology/blob/master/QC_trim.py)
-```
-python3 QC_trim.py -f SNG_R1.fq.gz -q 20 -k 4 -m 20 -l 10
-```
+1. Trimming: Trimmomatic
+- http://www.usadellab.org/cms/?page=trimmomatic
+
 2. Mapping: BWA
 - http://bio-bwa.sourceforge.net/
-3. Bam filter: BamM 'filter
+
+## 2.5 Filtering
+
+Bam filter: BamM 'filter
 - http://ecogenomics.github.io/BamM/
 
-## 1.3 Filtering
+
+# 3. Analysis
 
 **References:**
 - https://www.nature.com/articles/s41564-018-0190-y#ref-CR18
