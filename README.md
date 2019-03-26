@@ -1,7 +1,5 @@
-# 1. Virome assembly
-
-# 2. OTUs calling
-## 2.1 Database of assembled viromes
+# 1. OTUs calling
+## 1.1 Database of assembled viromes
 
 Two datasets were used:
 - To retrieve a fasta of all genome assemblies available on NCBI:
@@ -10,7 +8,7 @@ Two datasets were used:
 
 - Earth's virome database: https://www.nature.com/articles/nature19094#methods
 
-## 2.2 Merge with contigs
+## 1.2 Merge with contigs
 
 ```
 cat /home/fodelian/Desktop/ViralGenomes/assembly_db/refseq_viral_genomes.fasta \
@@ -21,7 +19,7 @@ cat /home/fodelian/Desktop/ViralGenomes/assembly_db/refseq_viral_genomes.fasta \
      > raw_db_ctgs.fasta
 ```
 
-### 2.3 Find 95% identity centroids
+### 1.3 Find 95% identity centroids
 
 Vsearch: https://github.com/torognes/vsearch
 
@@ -29,7 +27,7 @@ Vsearch: https://github.com/torognes/vsearch
 vsearch --cluster_fast raw_db_ctgs.fasta --consout 95_database.fasta --id 0.95 --iddef 0 --maxseqlength 3000000 --threads 6 --usersort
 ```
 
-## 2.4 Mapping
+## 1.4 Mapping
 
 Script: [preprocess.py](https://github.com/Mass23/Viral-ecology/blob/master/preprocess.py)
 
@@ -54,13 +52,13 @@ cat VEV1_R2.fq.gz VEV2_R2.fq.gz > VEV_R2.fq.gz
 2. Mapping: BWA
 - http://bio-bwa.sourceforge.net/
 
-## 2.5 Filtering
+## 1.5 Filtering
 
 Bam filter: BamM 'filter
 - http://ecogenomics.github.io/BamM/
 
 
-# 3. Analysis
+# 2. Analysis
 
 **References:**
 - https://www.nature.com/articles/s41564-018-0190-y#ref-CR18
